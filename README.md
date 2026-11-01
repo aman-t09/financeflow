@@ -1,16 +1,56 @@
-# React + Vite
+# FinanceFlow
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal finance dashboard for tracking income, expenses, category-wise spending, and analytics, with interactive charts and a responsive interface.
 
-Currently, two official plugins are available:
+**Live demo:** https://financeflow-onestop.vercel.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Dashboard with balance, monthly income and expenses, savings rate, and a 6-month income vs expense chart
+- Add, edit, and delete transactions, with search and filters by type, category, and month
+- Analytics page with daily spending, category breakdown, ranked spending, and month-over-month comparison
+- Interactive charts with custom hover tooltips (Recharts)
+- Light and dark themes that follow the system preference and are remembered
+- Responsive layout: sidebar on desktop, top bar and bottom tabs on mobile
+- Sample data loader, plus options to remove sample data or clear everything
+- Data persisted in the browser via localStorage
 
-## Expanding the ESLint configuration
+## Tech stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React (hooks, custom `useLocalStorage` hook)
+- Vite
+- Tailwind CSS, with theme tokens driven by CSS variables
+- Recharts
+
+## Project structure
+
+```
+src/
+├── components/   reusable UI and chart components
+├── pages/        Dashboard, Transactions, Analytics
+├── hooks/        useLocalStorage
+├── utils/        finance.js (pure calculation functions)
+├── data/         categories and sample data
+└── App.jsx       state, actions, page switching
+```
+
+## Design decisions
+
+- All totals, trends, and category breakdowns are pure functions in `utils/finance.js`, so charts and stat cards always derive from one source of truth.
+- Colors are CSS variables mapped to Tailwind tokens, so dark mode needs no per-component overrides.
+- Persistence lives in one custom hook, so swapping localStorage for an API later changes a single file.
+
+## Run locally
+
+```bash
+git clone https://github.com/aman-t09/financeflow.git
+cd financeflow
+npm install
+npm run dev
+```
+
+## Limitations and future work
+
+- No backend: data is stored per browser and does not sync across devices
+- Planned: monthly budgets, recurring transactions, CSV/JSON export, Node/Express backend with authentication
